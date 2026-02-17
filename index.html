@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raissa ❤️ Kauan</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #141414, #1b1b1b);
+  color:white;
+  text-align:center;
+  overflow-x:hidden;
+  position:relative;
+}
+
+/* --- ESTRELAS DE FUNDO --- */
+#estrelas{
+  position:fixed;
+  width:100%;
+  height:100%;
+  z-index:0;
+  pointer-events:none;
+}
+
+/* --- TELA SENHA --- */
+#senhaTela{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:#e50914;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+  animation: fadeIn 1.5s;
+}
+
+#senhaTela h1{
+  font-family: 'Bebas Neue', cursive;
+  font-size: 50px;
+  margin-bottom:20px;
+}
+
+#senhaTela p{
+  font-size:18px;
+}
+
+input{
+  padding:12px;
+  border-radius:12px;
+  border:none;
+  margin-top:10px;
+  font-size:16px;
+}
+
+button{
+  padding:12px 25px;
+  border:none;
+  border-radius:15px;
+  cursor:pointer;
+  margin-top:10px;
+  font-size:16px;
+  font-weight:bold;
+  background:#ff4d6d;
+  color:white;
+  transition:0.3s;
+}
+
+button:hover{
+  background:#ff758c;
+}
+
+/* --- CARTA --- */
+#carta{
+  display:none;
+  margin:30px auto;
+  background:white;
+  color:#e50914;
+  padding:25px;
+  border-radius:20px;
+  width:90%;
+  max-width:500px;
+  box-shadow: 0 10px 25px rgba(255,77,109,0.4);
+  opacity:0;
+  transform: translateY(20px);
+  transition:0.5s;
+  text-align:left;
+}
+
+/* --- HEADER --- */
+header{
+  padding:50px;
+  opacity:0;
+  animation: aparecer 2s forwards;
+  position:relative;
+  z-index:1;
+}
+
+header h1{
+  font-family: 'Bebas Neue', cursive;
+  font-size: 50px;
+  margin-bottom:10px;
+}
+
+header p{
+  font-size:18px;
+  margin:5px 0;
+}
+
+/* --- GALERIA --- */
+.galeria{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:15px;
+  padding:20px;
+}
+
+.galeria img{
+  width:90%;
+  max-width:250px;
+  border-radius:20px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.3);
+  transition:0.3s;
+  cursor:pointer;
+}
+
+.galeria img:hover{
+  transform:scale(1.08);
+  box-shadow:0 10px 30px rgba(255,77,109,0.5);
+}
+
+/* --- QUIZ --- */
+.quiz{
+  background:#222;
+  color:white;
+  margin:30px auto;
+  padding:25px;
+  border-radius:20px;
+  width:90%;
+  max-width:500px;
+  box-shadow: 0 10px 25px rgba(255,77,109,0.3);
+  text-align:left;
+  font-family: 'Roboto', sans-serif;
+}
+
+.quiz input{
+  width:80%;
+  padding:10px;
+  margin-bottom:10px;
+  border-radius:8px;
+  border:2px solid #ff4d6d;
+  transition:0.4s;
+}
+
+.quiz button{
+  margin-bottom:15px;
+}
+
+/* --- EFEITOS ACERTO/ERRO --- */
+.acertou{
+  border-color:#4caf50 !important;
+  background:#d4edda;
+  animation: pulse 0.5s;
+}
+
+.errou{
+  border-color:#f44336 !important;
+  background:#f8d7da;
+  animation: shake 0.5s;
+}
+
+/* --- MINI-JOGO CORAÇÕES --- */
+#miniJogoContainer{
+  position:relative;
+  height:200px;
+}
+
+/* --- CORAÇÕES --- */
+@keyframes subir{
+  0%{transform:translateY(0); opacity:1;}
+  100%{transform:translateY(-200px); opacity:0;}
+}
+
+/* --- FADE IN --- */
+@keyframes aparecer{
+  to{opacity:1;}
+}
+@keyframes fadeIn{
+  from{opacity:0;} to{opacity:1;}
+}
+
+@keyframes shake{
+  0%{ transform:translateX(0);}
+  25%{ transform:translateX(-5px);}
+  50%{ transform:translateX(5px);}
+  75%{ transform:translateX(-5px);}
+  100%{ transform:translateX(0);}
+}
+
+@keyframes pulse{
+  0%{ transform:scale(1);}
+  50%{ transform:scale(1.05);}
+  100%{ transform:scale(1);}
+}
+
+/* --- MENSAGEM SECRETA --- */
+#mensagemSecreta h2{
+  font-family: 'Bebas Neue', cursive;
+  font-size:30px;
+  margin-bottom:15px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="estrelas"></div>
+
+<!-- TELA SENHA -->
+<div id="senhaTela">
+  <h1>Área secreta 💖</h1>
+  <p>Digite a senha 💖</p>
+  <input type="password" id="senha">
+  <button onclick="verificarSenha()">Entrar</button>
+</div>
+
+<header>
+  <h1>Raissa ❤️ Kauan</h1>
+  <p>"Você é a resposta das minhas orações."</p>
+  <p id="tempo"></p>
+</header>
+
+<h2>Nosso Álbum 📸</h2>
+<div class="galeria">
+  <img src="foto1.jpg">
+  <img src="foto2.jpg">
+  <img src="foto3.jpg">
+  <img src="foto4.jpg">
+  <img src="foto5.jpg">
+  <img src="foto6.jpg">
+</div>
+
+<button onclick="abrirCarta()">Abrir Carta 💌</button>
+
+<div id="carta">
+  <h2>Para você Raissa ❤️</h2>
+  <p>
+    Raissa, você é o melhor presente que a vida me deu.
+    Minha vida mudou completamente desde que você chegou.
+    Quero viver muitos sonhos com você e te fazer feliz todos os dias.
+    Eu te amo ❤️
+  </p>
+</div>
+
+<div class="quiz">
+  <h2>Quiz sobre nós 🎮</h2>
+
+  <p>Quem mais se arruma dos 2?</p>
+  <input type="text" id="pergunta0">
+  <button onclick="verificarResposta(0)">Responder</button>
+
+  <p>Onde compraram o último lanche?</p>
+  <input type="text" id="pergunta1">
+  <button onclick="verificarResposta(1)">Responder</button>
+
+  <p>Quem é mais ciumento?</p>
+  <input type="text" id="pergunta2">
+  <button onclick="verificarResposta(2)">Responder</button>
+
+  <p>Momento inesquecível?</p>
+  <input type="text" id="pergunta3">
+  <button onclick="verificarResposta(3)">Responder</button>
+
+  <p>Onde foi o primeiro lugar que vocês saíram?</p>
+  <input type="text" id="pergunta4">
+  <button onclick="verificarResposta(4)">Responder</button>
+
+  <p>Qual música vocês colocaram nos primeiros stories?</p>
+  <input type="text" id="pergunta5">
+  <button onclick="verificarResposta(5)">Responder</button>
+</div>
+
+<h2>Mini-jogo ❤️</h2>
+<p>Clique nos corações que caem para desbloquear uma mensagem!</p>
+<div id="miniJogoContainer"></div>
+
+<audio id="musica" loop controls>
+  <source src="musica.mp3">
+</audio>
+
+<script>
+// --- ESTRELAS ---
+const estrelasContainer = document.getElementById("estrelas");
+for(let i=0;i<100;i++){
+  const star = document.createElement("div");
+  star.innerHTML="⭐";
+  star.style.position="absolute";
+  star.style.top=Math.random()*100 + "%";
+  star.style.left=Math.random()*100 + "%";
+  star.style.fontSize=Math.random()*10 + 5 +"px";
+  star.style.opacity=Math.random();
+  estrelasContainer.appendChild(star);
+}
+
+// --- SENHA ---
+function verificarSenha(){
+  const senha = document.getElementById("senha").value.trim();
+  if(senha === "amor"){ // qualquer senha que você queira
+    mostrarCoracoes(50);
+    const musica = document.getElementById("musica");
+    musica.volume=0.5;
+    musica.play().catch(()=>{});
+    setTimeout(()=>{document.getElementById("senhaTela").style.display="none";},2000);
+  }else{
+    alert("Senha incorreta 😢");
+  }
+}
+
+// --- CORAÇÕES ---
+function mostrarCoracoes(qtd){
+  for(let i=0;i<qtd;i++){
+    const coracao = document.createElement("div");
+    coracao.innerHTML = "❤️";
+    coracao.style.position = "fixed";
+    coracao.style.left = Math.random()*100 + "vw";
+    coracao.style.top = Math.random()*100 + "vh";
+    coracao.style.fontSize = "30px";
+    coracao.style.animation = "subir 2s linear";
+    document.body.appendChild(coracao);
+    setTimeout(()=>{coracao.remove();},2000);
+  }
+}
+
+// --- CARTA ---
+function abrirCarta(){
+  const carta = document.getElementById("carta");
+  carta.style.display="block";
+  setTimeout(()=>{
+    carta.style.opacity="1";
+    carta.style.transform="translateY(0)";
+  },50);
+}
+
+// --- CONTADOR ---
+const inicio = new Date("2023-12-26");
+function atualizarTempo(){
+  const hoje = new Date();
+  const diff = hoje - inicio;
+  const dias = Math.floor(diff/(1000*60*60*24));
+  document.getElementById("tempo").innerHTML =
+    "Estamos juntos há " + dias + " dias ❤️";
+}
+atualizarTempo();
+setInterval(atualizarTempo,1000);
+
+// --- GALERIA INTERATIVA ---
+document.querySelectorAll(".galeria img").forEach(img=>{
+  img.onclick = ()=>{
+    const tela = document.createElement("div");
+    tela.style.position="fixed";
+    tela.style.top="0";
+    tela.style.left="0";
+    tela.style.width="100%";
+    tela.style.height="100%";
+    tela.style.background="rgba(0,0,0,0.9)";
+    tela.style.display="flex";
+    tela.style.justifyContent="center";
+    tela.style.alignItems="center";
+
+    const foto = document.createElement("img");
+    foto.src = img.src;
+    foto.style.maxWidth="90%";
+    foto.style.borderRadius="20px";
+
+    tela.appendChild(foto);
+    tela.onclick = ()=> tela.remove();
+    document.body.appendChild(tela);
+  }
+});
+
+// --- QUIZ INTERATIVO ---
+const perguntas = [
+  { pergunta: "Quem mais se arruma dos 2?", resposta: "Eu" },
+  { pergunta: "Onde compraram o último lanche?", resposta: "Brabus Burguer" },
+  { pergunta: "Quem é mais ciumento?", resposta: "Ele" },
+  { pergunta: "Momento inesquecível?", resposta: "26/12/2023" },
+  { pergunta: "Onde foi o primeiro lugar que vocês saíram?", resposta: "Mix Açaí" },
+  { pergunta: "Qual música vocês colocaram nos primeiros stories?", resposta: "Nocaute" }
+];
+
+let pontos = 0;
+let respondido = [false,false,false,false,false,false];
+
+function verificarResposta(i){
+  const input = document.getElementById("pergunta"+i);
+  const respostaUsuario = input.value.trim();
+  const correta = perguntas[i].resposta;
+  input.classList.remove("acertou","errou");
+
+  if(respostaUsuario.toLowerCase() === correta.toLowerCase()){
+    if(!respondido[i]){
+      respondido[i] = true;
+      pontos++;
+    }
+    input.classList.add("acertou");
+  } else {
+    input.classList.add("errou");
+  }
+
+  if(pontos === perguntas.length){
+    mostrarMensagemSecreta();
+  }
+}
+
+function mostrarMensagemSecreta(){
+  if(document.getElementById("mensagemSecreta")) return;
+  const mensagem = document.createElement("div");
+  mensagem.id = "mensagemSecreta";
+  mensagem.style.position = "fixed";
+  mensagem.style.top = "50%";
+  mensagem.style.left = "50%";
+  mensagem.style.transform = "translate(-50%, -50%)";
+  mensagem.style.background = "white";
+  mensagem.style.color = "#e50914";
+  mensagem.style.padding = "25px";
+  mensagem.style.borderRadius = "20px";
+  mensagem.style.width = "90%";
+  mensagem.style.maxWidth = "500px";
+  mensagem.style.boxShadow = "0 10px 25px rgba(255,77,109,0.4)";
+  mensagem.style.textAlign = "center";
+  mensagem.style.opacity = "0";
+  mensagem.style.fontFamily = "'Roboto', sans-serif";
+  mensagem.style.fontSize = "18px";
+  mensagem.style.animation = "fadeIn 1s forwards";
+
+  mensagem.innerHTML = `
+    <h2>Mensagem secreta</h2>
+    <p>
+    Hoje pode ser um dia comum, mas para mim, cada dia é especial porque você existe na minha vida.
+    Você é luz nos meus dias, sorriso nos meus momentos difíceis e amor que faz meu coração bater mais forte.
+    Eu só queria que você soubesse: <strong>você é a parte mais especial da minha vida</strong>
+    </p>
+  `;
+
+  document.body.appendChild(mensagem);
+  mostrarCoracoes(30);
+}
+
+// --- MINI-JOGO CORAÇÕES ---
+const container = document.getElementById("miniJogoContainer");
+let pontosMini = 0;
+
+function criarCoracaoMiniJogo(){
+  const c = document.createElement("div");
+  c.innerHTML = "❤️";
+  c.style.position = "absolute";
+  c.style.left = Math.random()*90 + "%";
+  c.style.top = "-30px";
+  c.style.fontSize = "30px";
+  c.style.cursor = "pointer";
+  container.appendChild(c);
+
+  let pos = -30;
+  const intervalo = setInterval(()=>{
+    pos += 2;
+    c.style.top = pos + "px";
+    if(pos > window.innerHeight){
+      clearInterval(intervalo);
+      c.remove();
+    }
+  },20);
+
+  c.addEventListener("click", ()=>{
+    pontosMini++;
+    mostrarCoracoes(1);
+    c.remove();
+    if(pontosMini>=5){
+      alert("💖 Você desbloqueou uma surpresa! Eu te amo infinito!");
+      pontosMini = 0;
+    }
+  });
+}
+setInterval(criarCoracaoMiniJogo, 800);
+
+</script>
+
+</body>
+</html>
